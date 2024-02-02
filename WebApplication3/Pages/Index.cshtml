@@ -1,0 +1,22 @@
+﻿@page
+@model WebApplication3.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Ace Job Agency</h1>
+    <p>Seize Your Dream Job.</p>
+    @if (Model.CurrentUser != null)
+    {
+        <p>Email: @Model.CurrentUser.Email</p>
+        <p>Name: @Model.CurrentUser.FirstName @Model.CurrentUser.LastName</p>
+        <p>Gender: @Model.CurrentUser.Gender</p>
+        <p>NRIC: @Model.DecryptedNRIC</p>
+        <p>Date of Birth: @Model.CurrentUser.DateOfBirth.ToString("dd/MM/yyyy")</p>
+    }
+    else
+    {
+        <p>You are not logged in.</p>
+    }
+</div>

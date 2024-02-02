@@ -1,0 +1,140 @@
+﻿@page
+@model WebApplication3.Pages.RegisterModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">Register</h1>
+            <form method="post" enctype="multipart/form-data">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="RModel.FirstName">First Name</label>
+                            <input type="text" asp-for="RModel.FirstName" class="form-control" asp-antiforgery="true" />
+                            <span asp-validation-for="RModel.FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="RModel.LastName">Last Name</label>
+                            <input type="text" asp-for="RModel.LastName" class="form-control" asp-antiforgery="true" />
+                            <span asp-validation-for="RModel.LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Gender">Gender</label>
+                    <select asp-for="RModel.Gender" class="form-control" asp-antiforgery="true">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span asp-validation-for="RModel.Gender" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.NRIC">NRIC</label>
+                    <input type="text" asp-for="RModel.NRIC" class="form-control" asp-antiforgery="true" />
+                    <span asp-validation-for="RModel.NRIC" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Email">Email Address</label>
+                    <input type="text" asp-for="RModel.Email" class="form-control" asp-antiforgery="true" />
+                    <span asp-validation-for="RModel.Email" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="RModel.Password">Password</label>
+                            <input type="password" asp-for="RModel.Password" class="form-control" asp-antiforgery="true" onkeyup="checkPasswordStrength(this.value)" />
+                            <span asp-validation-for="RModel.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="RModel.ConfirmPassword">Confirm Password</label>
+                            <input type="password" asp-for="RModel.ConfirmPassword" class="form-control" asp-antiforgery="true" />
+                            <span asp-validation-for="RModel.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div id="passwordStrengthFeedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.DateOfBirth">Date of Birth</label>
+                    <input type="date" asp-for="RModel.DateOfBirth" class="form-control" max="@DateTime.Now.ToString("yyyy-MM-dd")" asp-antiforgery="true" />
+                    <span asp-validation-for="RModel.DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Resume">Resume</label>
+                    <input type="file" asp-for="RModel.Resume" class="form-control" asp-antiforgery="true" />
+                    <span asp-validation-for="RModel.Resume" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.WhoAmI">Who Am I</label>
+                    <textarea asp-for="RModel.WhoAmI" class="form-control" asp-antiforgery="true"></textarea>
+                    <span asp-validation-for="RModel.WhoAmI" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkPasswordStrength(password) {
+        var strength = 0;
+        var atChar = String.fromCharCode(64);
+        var regex = new RegExp("[$" + atChar + "$!%*?&]+");
+
+        if (/[a-z]+/.test(password)) {
+            strength += 1;
+        }
+        if (/[A-Z]+/.test(password)) {
+            strength += 1;
+        }
+        if (/[0-9]+/.test(password)) {
+            strength += 1;
+        }
+        if (regex.test(password)) {
+            strength += 1;
+        }
+        if (password.length > 12) {
+            strength += 1;
+        }
+
+        var feedback = '';
+        var feedbackElement = document.getElementById('passwordStrengthFeedback');
+        switch (strength) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                feedback = 'Weak';
+                feedbackElement.style.color = 'red';
+                break;
+            case 5:
+                feedback = 'Strong';
+                feedbackElement.style.color = 'green';
+                break;
+            default:
+                feedback = 'Weak';
+                feedbackElement.style.color = 'red';
+                break;
+        }
+
+        feedbackElement.innerText = feedback;
+    }
+</script>

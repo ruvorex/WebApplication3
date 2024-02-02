@@ -27,7 +27,14 @@ namespace WebApplication3.Pages
             if (user == null)
             {
                 _logger.LogWarning("User is not logged in.");
-                return RedirectToPage("/Login"); // Redirect to login page if not logged in
+                return RedirectToPage("/Login");
+            }
+
+            // Check if the password needs to be changed
+            if (DateTime.UtcNow - user.LastPasswordChangeDate > TimeSpan.FromMinutes(200))
+            {
+                _logger.LogInformation("User needs to change password.");
+                return RedirectToPage("/ChangePassword"); // Redirect to ChangePassword page
             }
 
             // Retrieve session GUID from cookie

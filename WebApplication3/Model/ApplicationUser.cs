@@ -12,5 +12,6 @@ namespace WebApplication3.Model
         public string ResumePath { get; set; } 
         public string WhoAmI { get; set; }
         public string? CurrentSessionId { get; set; }
+        public DateTime LastPasswordChangeDate { get; set; }
     }
 }

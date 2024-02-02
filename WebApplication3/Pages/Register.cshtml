@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <h1 class="mb-4">Register</h1>
             <form method="post" enctype="multipart/form-data">
-
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -85,6 +85,8 @@
                     <span asp-validation-for="RModel.WhoAmI" class="text-danger"></span>
                 </div>
 
+                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" />
+
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Register</button>
                 </div>
@@ -94,6 +96,11 @@
 </div>
 
 <script>
+    grecaptcha.ready(function () {
+        grecaptcha.execute('6LfG2WMpAAAAANOko2qSb3yZUfVemKt9EJuXWH-M', { action: 'Register' }).then(function (token) {
+            document.getElementById("g-recaptcha-response").value = token;
+        });
+    });
     function checkPasswordStrength(password) {
         var strength = 0;
         var atChar = String.fromCharCode(64);
